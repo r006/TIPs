@@ -1,1 +1,1 @@
-# TIPs
+# LeetCode Practice Solutions
