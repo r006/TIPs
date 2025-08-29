@@ -1,5 +1,7 @@
 /*
 
+Reverse String
+
 Utilize 2 pointer approach and swap function
 
 Declare 2 pointers front = 0, back = size of array - 1
