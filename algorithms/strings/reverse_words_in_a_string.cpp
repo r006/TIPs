@@ -7,7 +7,7 @@ Reverse each word in sentence without changing the order of the words
 
 Declare variable startOfWord to track the start of each word. 
 Assign to 0 initially. 
-Declare 2 pointers front = space, back = position of the next space -1 
+Declare 2 pointers front = startOfWord, back = position of the next space -1 
 Create a string reverse function that passes string s, front and back
 While back > front (converge to midpoint of array), use swap function to swap s[front] and s[back] 
 increment front, decrement back
