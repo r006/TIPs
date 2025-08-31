@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajesh Sharma - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --light-bg: #F8F9FA;
+            --light-text: #1a202c;
+            --light-card: #ffffff;
+            --light-shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            transition: background-color 0.3s, color 0.3s;
+             overflow-x: hidden; 
+            min-height: 100vh;
+        }
+        .text-deep-green { color: #004d40; }
+        .bg-deep-green { background-color: #004d40; }
+        .text-teal-green { color: #26A69A; }
+        .bg-teal-green { background-color: #26A69A; }
+        .text-dark-gray-card { color: #374151; }
+        .link-active {
+            background-color: #26A69A;
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 9999px;
+            font-weight: 700;
+        }
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-in-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page-hidden {
+            display: none;
+        }
+        .svg-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            opacity: 0.1;
+        }
+        .frame-container {
+            position: relative;
+            width: 280px;
+            height: 320px;
+        }
+        .frame-base {
+            width: 100%;
+            height: 100%;
+            background-color: #004d40;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            border-radius: 0.75rem;
+        }
+        .frame-overlay {
+            width: 100%;
+            height: 100%;
+            background-color: #26A69A;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            transform: rotate(-5deg);
+            z-index: 20;
+            border-radius: 0.75rem;
+        }
+      .frame-image-holder {
+            width: 90%;
+            height: 90%;
+            background-color: #F3F4F6;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+
+        }
+        .profile-image-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(5deg); /* Adjusted to create the pop-out effect */
+            width: 110%; /* Makes the image larger */
+            height: 110%; /* Makes the image larger */
+            z-index: 30; /* Puts the image on top of the frames */
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .font-monodev {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .horizontal-timeline {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 2rem 0;
+            position: relative;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer */
+        }
+        .horizontal-timeline::-webkit-scrollbar {
+            display: none;
+        }
+        .horizontal-timeline:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #CBD5E1;
+            transform: translateY(-50%);
+        }
+        .timeline-item-horizontal {
+            flex: 0 0 300px;
+            margin: 0 1.5rem;
+            position: relative;
+            background-color: var(--light-card);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--light-shadow);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .timeline-item-horizontal:hover {
+            transform: translateY(-5px);
+        }
+        .timeline-item-horizontal:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            background-color: #004d40;
+            border-radius: 50%;
+            border: 2px solid var(--light-card);
+            z-index: 20;
+        }
+        #contact .w-full {
+            max-width: 600px;
+        }
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #26A69A;
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
+        }
+        #scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Navigation Header -->
+    <header class="bg-transparent sticky top-0 z-50 transition-colors">
+        <nav class="container mx-auto px-4 py-4 sm:py-2 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-thin text-dark-gray-card font-monodev select-none">&lt;R/S&gt;</a>
+            <div class="space-x-4 flex flex-wrap justify-center mt-2 sm:mt-0">
+                <a href="#home" class="nav-link text-gray-700 hover:text-deep-green font-medium transition-colors px-3 py-1 rounded-full text-sm">Home</a>
+                <a href="#skills" class="nav-link text-gray-700 hover:text-deep-green font-medium transition-colors px-3 py-1 rounded-full text-sm">Skills</a>
+                <a href="#projects" class="nav-link text-gray-700 hover:text-deep-green font-medium transition-colors px-3 py-1 rounded-full text-sm">Projects</a>
+                <a href="#experience" class="nav-link text-gray-700 hover:text-deep-green font-medium transition-colors px-3 py-1 rounded-full text-sm">Experience</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-deep-green font-medium transition-colors px-3 py-1 rounded-full text-sm">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content Container -->
+    <main class="container mx-auto p-4 sm:p-8">
+        <!-- Home Page (now including About and Timeline content) -->
+        <section id="home" class="page flex flex-col items-center py-8 sm:py-12 animate-slide-up relative overflow-hidden">
+            <div class="svg-background">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="currentColor">
+                    <circle cx="20" cy="20" r="10" fill="#26A69A" transform="scale(1.5)" />
+                    <rect x="70" y="70" width="20" height="20" fill="#004d40" transform="rotate(45 80 80)" />
+                    <line x1="10" y1="90" x2="90" y2="10" stroke="#26A69A" stroke-width="2" />
+                </svg>
+            </div>
+            <!-- Main Hero Section -->
+            <div class="flex flex-col lg:flex-row items-center w-full relative z-10">
+                <!-- Left Section (Color Block) -->
+                <div class="relative flex flex-col justify-center items-start p-8 sm:p-12 lg:w-3/5 bg-deep-green text-white rounded-lg shadow-xl animate-fade-in">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
+                        Rajesh Sharma.
+                    </h1>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6 text-teal-green">
+                        Electrical & Computer Engineering Student.
+                    </h2>
+                    <p class="text-base sm:text-lg lg:text-xl font-light max-w-xl">
+                        Hi, my name is Rajesh Sharma and I'm a second-year Electrical and Computer Engineering student with a keen interest in software development. I started my journey by creating well-designed, responsive websites using HTML and CSS, and now I’m eager to progress into building native applications that deliver a seamless user experience. I’m driven by the challenge of learning new technologies and turning ideas into polished, functional products.
+                    </p>
+                    <!-- Social Links -->
+                    <div class="flex items-center space-x-6 mt-8">
+                        <a href="https://github.com/r006" class="text-white hover:text-teal-green transition-colors">
+<svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
+</svg>
+
+                        </a>
+                        <a href="https://www.linkedin.com/in/rajesh-sharma2025/" class="text-white hover:text-teal-green transition-colors">
+<svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
+  <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
+</svg>
+                        </a>
+                    </div>
+                </div>
+                    <!-- Right Section (Image Placeholder) -->
+                <div class="flex justify-center items-center w-full lg:w-2/5 mt-8 lg:mt-0 p-8 relative z-10">
+                    <div class="frame-container">
+                        <div class="frame-base rounded-xl bg5"></div>
+                        <div class="frame-overlay rounded-xl"></div>
+                        <div class="frame-image-holder">
+                            <img src="./assets/picture.png" alt="Your Photo" class="extrabig w-full h-full object-cover">
+                            <!-- <p class="text-center text-gray-500">Your Photo Here</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+<style>
+.extrabig {
+
+    width: 140%;
+        transform: translate(0%, -14%);
+
+    height: 140%;
+   
+}
+</style>
+
+
+
+            
+         
+
+        <!-- Skills Page -->
+        <section id="skills" class="page page-hidden relative py-12 sm:py-16 animate-slide-up overflow-hidden">
+            <h2 class="text-4xl font-bold mb-8 text-deep-green relative z-10 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-2 text-teal-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l4-4-4-4"></path><path d="M8 6l-4 4 4 4"></path><path d="M14 4l-4 16"></path></svg>
+                Technical Skills
+            </h2>
+            <div class="svg-background">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="currentColor">
+                    <polygon points="10,10 90,10 90,90 10,90" fill="#004d40" transform="rotate(20 50 50)" />
+                    <polygon points="0,50 50,0 100,50 50,100" fill="#26A69A" transform="rotate(-15 50 50)" />
+                    <polygon points="20,80 80,80 80,20 20,20" fill="#004d40" transform="rotate(30 50 50)" />
+                </svg>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+                <div class="bg-white p-6 rounded-lg shadow-md transition-colors">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">C</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">C++</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">C#</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">VHDL</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md transition-colors">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Software & Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">MATLAB</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">AutoCAD</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">Xilinx VIVADO</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">NI Multisim</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">Git</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md transition-colors">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Web Design</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">HTML/CSS</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">JavaScript</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">Bootstrap</span>
+                        <span class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium">Netlify/Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Page -->
+        <section id="projects" class="page page-hidden relative py-12 sm:py-16 animate-slide-up overflow-hidden">
+            <h2 class="text-4xl font-bold mb-8 text-deep-green relative z-10">Featured Projects</h2>
+            <div class="svg-background">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="currentColor">
+                    <circle cx="20" cy="20" r="10" fill="#26A69A" transform="translate(10, 10) scale(1.5)" />
+                    <rect x="70" y="70" width="20" height="20" fill="#004d40" transform="rotate(45 80 80)" />
+                    <polygon points="50,10 60,30 40,30" fill="#004d40" transform="rotate(90 50 20) translate(0, 50)" />
+                    <line x1="10" y1="90" x2="90" y2="10" stroke="#26A69A" stroke-width="2" transform="translate(-10, 10)" />
+                </svg>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                <!-- Project 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md transition-colors">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Simulation & Hardware Development</h3>
+                    <p class="text-gray-600 mb-4">
+                        Designed and developed digital circuits on a Basys 3 Artix-7 FPGA Trainer Board using Xilinx VIVADO.
+                        Additionally, programmed various sensors using Raspberry Pi, gaining hands-on experience with C++ and GPIO interfacing.
+                    </p>
+                    <a href="#" class="text-deep-green hover:underline font-medium">View Details &rarr;</a>
+                </div>
+                <!-- Project 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md transition-colors">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">Web Development</h3>
+                    <p class="text-gray-600 mb-4">
+                        Designed and developed responsive websites with modern UI for clients using HTML/CSS, demonstrating strong web design skills.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <a href="https://davindersharma.netlify.app/" target="_blank" class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-300 transition-colors">Website 1 &rarr;</a>
+                        <a href="https://adavallanartacademy.netlify.app/" target="_blank" class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-300 transition-colors">Website 2 &rarr;</a>
+                        <a href="https://website-miss-ramlal.web.app/" target="_blank" class="bg-gray-200 text-gray-700 rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-300 transition-colors">Website 3 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Page -->
+        <section id="experience" class="page page-hidden relative py-12 sm:py-16 animate-slide-up overflow-hidden">
+            <h2 class="text-4xl font-bold mb-8 text-deep-green relative z-10">Professional Experience</h2>
+            <div class="svg-background">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="currentColor">
+                    <rect x="10" y="10" width="15" height="15" fill="#004d40" transform="rotate(30 17.5 17.5)" />
+                    <rect x="70" y="20" width="15" height="15" fill="#26A69A" transform="rotate(-15 77.5 27.5)" />
+                    <polygon points="5,50 15,40 25,50 15,60" fill="#004d40" transform="translate(10, 10)" />
+                    <polygon points="80,50 90,40 100,50 90,60" fill="#26A69A" transform="translate(-10, 10)" />
+                </svg>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-md transition-colors relative z-10">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-2">Technician, Lighting Paradise</h3>
+                <p class="text-gray-500 text-lg mb-4">June – September 2025, Tunapuna</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-600">
+                    <li>Installed, assembled, and maintained a variety of lighting fixtures and ceiling fans.</li>
+                    <li>Diagnosed and repaired faulty products, performed electrical connections safely, and tested equipment for quality assurance.</li>
+                    <li>Assisted customers with technical inquiries and provided excellent service.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page page-hidden relative py-12 sm:py-16 animate-slide-up overflow-hidden">
+            <h2 class="text-4xl font-bold mb-8 text-deep-green text-center relative z-10">Contact Me</h2>
+            <div class="svg-background">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" fill="currentColor">
+                    <circle cx="50" cy="50" r="40" fill="#26A69A" opacity="0.1" />
+                    <polygon points="50,10 60,30 40,30" fill="#004d40" transform="translate(5, 5)" />
+                    <line x1="10" y1="10" x2="90" y2="90" stroke="#004d40" stroke-width="1" />
+                    <line x1="90" y1="10" x2="10" y2="90" stroke="#26A69A" stroke-width="1" />
+                </svg>
+            </div>
+            <div class="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-2xl transition-colors relative z-10">
+                <p class="text-gray-600 text-center mb-6">
+                    Feel free to reach out to me directly or connect with me on social media.
+                </p>
+                <div class="flex items-center justify-center space-x-6 mb-8">
+                    <!-- Placeholder social links -->
+                    <a href="https://github.com/r006" class="text-deep-green hover:text-teal-green transition-colors">
+<svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill=#014D40 viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
+</svg>                    </a>
+                    <a href="https://www.linkedin.com/in/rajesh-sharma2025/" class="text-deep-green hover:text-teal-green transition-colors">
+<svg class="w-[30px] h-[30px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill=#014D40 viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
+  <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
+</svg>                    </a>
+                </div>
+                <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-4">
+                    <p class="text-sm text-gray-500 text-center">Note: This form requires a backend service like Formspree to function.</p>
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" name="name" id="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-green focus:border-teal-green sm:text-sm bg-gray-50 text-gray-900 transition-colors">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" name="_replyto" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-green focus:border-teal-green sm:text-sm bg-gray-50 text-gray-900 transition-colors">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-green focus:border-teal-green sm:text-sm bg-gray-50 text-gray-900 transition-colors"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-deep-green hover:bg-teal-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-green">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+           <!-- About Me Section -->
+            <div class="py-12 sm:py-16 w-full">
+                <h2 class="text-4xl font-bold mb-8 text-deep-green text-center sm:text-left">About Me</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-lg shadow-md transition-colors">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 text-teal-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16 8l-8 8"></path><path d="M8 8l8 8"></path></svg>
+                           Objective
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Highly motivated and detail-oriented second-year Electrical and Computer Engineering student at UWI with a strong academic record and passion for programming. Seeking an internship to apply technical skills, gain industry experience, and contribute to real-world engineering projects.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md transition-colors">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 text-teal-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.985v5.015h16v-5.015c0-1.076-.902-1.985-2-1.985h-12c-1.098 0-2 .909-2 1.985zm0-2.985h16v-5c0-1.076-.902-2-2-2h-12c-1.098 0-2 .924-2 2v5z"></path></svg>
+                            Education
+                        </h3>
+                        <ul class="space-y-4 text-gray-600">
+                            <li>
+                                <p class="font-bold">The University of the West Indies (UWI)</p>
+                                <p>BSc. Electrical and Computer Engineering (2024 - 2027)</p>
+                                <p>GPA: 3.76</p>
+                            </li>
+                            <li>
+                                <p class="font-bold">Hillview College</p>
+                                <p>Caribbean Advanced Proficiency Examination (CAPE) (2022 - 2024)</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Journey Section -->
+            <div class="py-12 sm:py-16 w-full">
+                <h2 class="text-4xl font-bold mb-8 text-deep-green text-center sm:text-left">My Journey</h2>
+                <div class="horizontal-timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item-horizontal">
+                        <p class="text-sm text-gray-500">2024 - 2027</p>
+                        <h3 class="text-xl font-semibold mt-1 mb-2 text-gray-800">The University of the West Indies</h3>
+                        <p class="text-gray-600">BSc. Electrical and Computer Engineering</p>
+                    </div>
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item-horizontal">
+                        <p class="text-sm text-gray-500">June – September 2025</p>
+                        <h3 class="text-xl font-semibold mt-1 mb-2 text-gray-800">Technician, Lighting Paradise</h3>
+                        <p class="text-gray-600">
+                            Installed, assembled, and maintained a variety of lighting fixtures and ceiling fans.
+                            Diagnosed and repaired faulty products and provided excellent customer service.
+                        </p>
+                    </div>
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item-horizontal">
+                        <p class="text-sm text-gray-500">2022 - 2024</p>
+                        <h3 class="text-xl font-semibold mt-1 mb-2 text-gray-800">Hillview College</h3>
+                        <p class="text-gray-600">Caribbean Advanced Proficiency Examination (CAPE)</p>
+                    </div>
+                    <!-- Timeline Item 4 -->
+                    <div class="timeline-item-horizontal">
+                        <p class="text-sm text-gray-500">2020 - 2022</p>
+                        <h3 class="text-xl font-semibold mt-1 mb-2 text-gray-800">Hillview College</h3>
+                        <p class="text-600">Caribbean Secondary Education Certificate (CSEC)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <button id="scroll-to-top" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-green">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateActiveLink(entry.target.id);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            pages.forEach(page => observer.observe(page));
+
+            const updateActiveLink = (pageId) => {
+                navLinks.forEach(link => {
+                    link.classList.remove('link-active');
+                });
+                const activeLink = document.querySelector(`a[href="#${pageId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('link-active');
+                }
+            };
+
+            const showPage = (pageId) => {
+                pages.forEach(page => {
+                    page.classList.add('page-hidden');
+                    page.classList.remove('animate-slide-up');
+                });
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.remove('page-hidden');
+                    void activePage.offsetWidth; 
+                    activePage.classList.add('animate-slide-up');
+                }
+                updateActiveLink(pageId);
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const pageId = event.target.getAttribute('href').substring(1);
+                    showPage(pageId);
+                });
+            });
+
+            // Scroll to top button logic
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+            showPage(initialPage);
+        });
+    </script>
+</body>
+</html>
