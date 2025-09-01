@@ -5,7 +5,7 @@ Remove 1 element from an array containing only 0s and 1s and find the largest nu
 
 Match: sliding windows aproach
 
-Plan 
+Plan    
 Initialize left, zeroCount, maxLen to 0
 Loop thorugh nums array and determine total number of zeroes in array. Store number in zeroCount
 While more than 1 zero is present in the array,     
