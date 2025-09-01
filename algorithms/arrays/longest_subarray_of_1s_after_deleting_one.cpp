@@ -13,9 +13,8 @@ While more than 1 zero is present in the array,
     If number is 0, decrement zeroCount
 compare maxLen to the size of consecutive 1s, If consecutives 1s more that maxLeng, assign right -left to maxLen
 Return maxLen
+
 */
-
-
 
 class Solution {
 public:
