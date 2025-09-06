@@ -3,7 +3,7 @@ Understanding:
 Convert a number to hexadecimal. If the number is negative, two’s complement form. Each hex digit represents 4 bits.
 
 Match:
-Excel column or binary conversion questions: repeatedly divide the number by the base (16) and track the remainder.
+Excel column: repeatedly divide the number by the base (16) and track the remainder.
 
 Plan:
 If the number is 0, return "0".
