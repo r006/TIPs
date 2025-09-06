@@ -1,5 +1,5 @@
 /*
-
+Understanding:
 Convert the integer into a column number by treating the columns as base 26. After z-26, another column of letters is introduced
 
 Plan:

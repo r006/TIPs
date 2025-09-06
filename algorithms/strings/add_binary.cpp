@@ -1,5 +1,4 @@
 /*
-
 Understanding: Perform simple binary addition on strings
 
 Match?
